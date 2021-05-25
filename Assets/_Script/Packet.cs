@@ -11,15 +11,34 @@ public class Packet
     public string Data;
 }
 
+public enum PacketType
+{
+    CONNEC_STATE = 1001,
+    REQUEST_POS = 1002,
+    SEND_POS = 1003
+}
+
 public class ConnectionState
 {
     //1:已连接 2：已断线
     public int State;
 }
 
+public class ScreenPoint
+{
+    public List<ScreenPos> vects;
+}
+
 public class ScreenPos
 {
-    public Vector2[] vects;
+    public double x;
+    public double y;
+
+    public ScreenPos(double _x,double _y)
+    {
+        x = _x;
+        y = _y;
+    }
 }
 
 

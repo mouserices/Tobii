@@ -216,7 +216,7 @@ Camera:
   m_GameObject: {fileID: 534669902}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 3
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_SensorSize: {x: 36, y: 24}
@@ -272,8 +272,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 667365605}
-  - component: {fileID: 667365604}
   - component: {fileID: 667365606}
+  - component: {fileID: 667365604}
   m_Layer: 0
   m_Name: main
   m_TagString: Untagged
@@ -288,9 +288,9 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 667365603}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 800168ad53260455ebb375563fd9112f, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b7d42ceb51b249f4a92053d4f28ac8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &667365605
@@ -316,6 +316,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 667365603}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94490e7899ba9411bb181c8d15e4f2b5, type: 3}
+  m_Script: {fileID: 11500000, guid: 3a7e0535760294464b547f6df97a4695, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
