@@ -237,7 +237,7 @@ public class MyDebugger : MonoBehaviour
             LogLabelShow();
         }
 
-        if (GUI.Button(new Rect(Screen.width - 500f,20f,300f,100f),"模拟请求数据"))
+        if (GUI.Button(new Rect(Screen.width - 200f,20f,100f,50f),"模拟请求数据"))
         {
             Game.GetInstance().C2s_SendPos();
         }
