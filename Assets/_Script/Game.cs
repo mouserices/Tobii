@@ -59,11 +59,12 @@ public class Game : MonoBehaviour
 
         GazePoint gazePoint = TobiiAPI.GetGazePoint();
 
+        //float.Epsilon
         if (gazePoint.IsRecent()
-            && gazePoint.Timestamp > (_lastGazePoint.Timestamp + float.Epsilon))
+            && gazePoint.Timestamp > (_lastGazePoint.Timestamp + 1f))
         {
             _lastGazePoint = gazePoint;
-            ScreenPos screenPos = new ScreenPos(gazePoint.Screen.x, gazePoint.Screen.y);
+            ScreenPos screenPos = new ScreenPos(Mathf.FloorToInt(gazePoint.Screen.x), Mathf.FloorToInt(gazePoint.Screen.y));
             _screenPosList.Add(screenPos);
         }
 
