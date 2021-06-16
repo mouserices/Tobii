@@ -40,13 +40,13 @@ public class StartWebSocket
         _webSocket.ConnectAsync();
     }
 
-    public void SendAsync(int type,string str)
+    public void SendAsync(int type,JsonData jData)
     {
-        Packet packet = new Packet();
-        packet.Type = type;
-        packet.Data = str;
+        JsonData jsonData = new JsonData();
+        jsonData["Type"] = type;
+        jsonData["Data"] = jData;
         
-        string json = JsonMapper.ToJson(packet);
+        string json = jsonData.ToJson();
         MyDebugger.AddLog("log",string.Format("WebSocket SendAsync, msg: {0}",json));
         _webSocket.SendAsync(json);
     }

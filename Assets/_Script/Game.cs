@@ -31,17 +31,17 @@ public class Game : MonoBehaviour
     {
         if (!StartWebSocket.GetInstance().GetIsConnected())
         {
-            //return;
+            return;
         }
         
         #region 检测设备连接状态
 
-        bool gazeIsValid = getGazeIsValid();
-        if (gazeIsValid && !_isGazeValid)
+        bool isConnected = IsConnected();
+        if (isConnected && !_isGazeValid)
         {
             _isGazeValid = true;
             C2s_TobillConnectionState(1);
-        }else if (!gazeIsValid && _isGazeValid)
+        }else if (!isConnected && _isGazeValid)
         {
             _isGazeValid = false;
             C2s_TobillConnectionState(0);
@@ -68,9 +68,9 @@ public class Game : MonoBehaviour
     /// 设备是否连接成功
     /// </summary>
     /// <returns></returns>
-    private bool getGazeIsValid()
+    private bool IsConnected()
     {
-        return TobiiAPI.GetGazePoint().IsRecent();
+        return TobiiAPI.IsConnected;
     }
 
     public void Reset()
@@ -83,19 +83,23 @@ public class Game : MonoBehaviour
 
     public void C2s_TobillConnectionState(int isConnected)
     {
-        ConnectionState state = new ConnectionState();
-        state.State = isConnected;
-        
-        string json = JsonMapper.ToJson(state);
-        StartWebSocket.GetInstance().SendAsync((int)PacketType.CONNEC_STATE,json);
+        JsonData jsonData = new JsonData();
+        jsonData["State"] = isConnected;
+        StartWebSocket.GetInstance().SendAsync((int)PacketType.CONNEC_STATE,jsonData);
     }
     
     public void C2s_SendPos()
     {
-        ScreenPoint screenPoint = new ScreenPoint();
-        screenPoint.vects = _screenPosList;
+        JsonData jsonData = new JsonData();
+
+        for (int i = 0; i < _screenPosList.Count; i++)
+        {
+            JsonData json_pos = new JsonData();
+            json_pos["x"] = _screenPosList[i].x;
+            json_pos["y"] = _screenPosList[i].y;
+            jsonData.Add(json_pos);
+        }
         
-        string json = JsonMapper.ToJson(screenPoint);
-        StartWebSocket.GetInstance().SendAsync((int)PacketType.SEND_POS,json);
+        StartWebSocket.GetInstance().SendAsync((int)PacketType.SEND_POS,jsonData);
     }
 }
