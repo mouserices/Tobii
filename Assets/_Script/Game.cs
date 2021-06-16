@@ -10,7 +10,7 @@ public class Game : MonoBehaviour
     private bool _isGazeValid = false;
     private GazePoint _lastGazePoint;
     private List<ScreenPos> _screenPosList;
-
+    private float timer = 0;
 
     public static Game GetInstance()
     {
@@ -21,7 +21,7 @@ public class Game : MonoBehaviour
     void Start()
     {
         _instance = this;
-        
+
         StartWebSocket.GetInstance().Create();
         StartWebSocket.GetInstance().ConnectAsync();
     }
@@ -33,18 +33,24 @@ public class Game : MonoBehaviour
         {
             return;
         }
-        
+
         #region 检测设备连接状态
 
-        bool isConnected = IsConnected();
-        if (isConnected && !_isGazeValid)
+        timer += Time.deltaTime;
+        if (timer >= 2f)
         {
-            _isGazeValid = true;
-            C2s_TobillConnectionState(1);
-        }else if (!isConnected && _isGazeValid)
-        {
-            _isGazeValid = false;
-            C2s_TobillConnectionState(0);
+            timer = 0;
+            bool isConnected = IsConnected();
+            if (isConnected)
+            {
+                _isGazeValid = true;
+                C2s_TobillConnectionState(1);
+            }
+            else if (!isConnected)
+            {
+                _isGazeValid = false;
+                C2s_TobillConnectionState(0);
+            }
         }
 
         #endregion
@@ -78,16 +84,15 @@ public class Game : MonoBehaviour
         _isGazeValid = false;
         _screenPosList = new List<ScreenPos>();
         _lastGazePoint = GazePoint.Invalid;
-        
     }
 
     public void C2s_TobillConnectionState(int isConnected)
     {
         JsonData jsonData = new JsonData();
         jsonData["State"] = isConnected;
-        StartWebSocket.GetInstance().SendAsync((int)PacketType.CONNEC_STATE,jsonData);
+        StartWebSocket.GetInstance().SendAsync((int) PacketType.CONNEC_STATE, jsonData);
     }
-    
+
     public void C2s_SendPos()
     {
         JsonData jsonData = new JsonData();
@@ -99,7 +104,7 @@ public class Game : MonoBehaviour
             json_pos["y"] = _screenPosList[i].y;
             jsonData.Add(json_pos);
         }
-        
-        StartWebSocket.GetInstance().SendAsync((int)PacketType.SEND_POS,jsonData);
+
+        StartWebSocket.GetInstance().SendAsync((int) PacketType.SEND_POS, jsonData);
     }
 }
