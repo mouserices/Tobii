@@ -26,7 +26,8 @@ public class StartWebSocket
     public void Create()
     {
         // 创建实例
-        string address = "ws://192.168.11.196:7272";
+        //ws://192.168.11.196:7272
+        string address = "ws://39.100.136.208:8080/y/websocket/sid";
         _webSocket = new WebSocket(address);
         _webSocket.OnOpen += OnOpen;
         _webSocket.OnClose += OnClose;
