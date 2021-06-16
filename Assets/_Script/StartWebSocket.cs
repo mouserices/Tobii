@@ -81,6 +81,10 @@ public class StartWebSocket
         {
             Game.GetInstance().C2s_SendPos();
         }
+        else if (packet.Type == (int)PacketType.RE_START)
+        {
+            Game.GetInstance().Reset();
+        }
     }
 
     private void OnClose(object sender, CloseEventArgs e)

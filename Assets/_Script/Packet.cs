@@ -7,6 +7,7 @@ public class Packet
     // type：1001， des：描述连接状态，         Data：ConnectionState
     // type：1002， des：阅读完成，请求坐标，    Data：空
     // type：1003， des：返回坐标集合           Data: ScreenPoint
+    // type: 1004,  des:重新开始阅读           Data：空
     public int Type;
     public string Data;
 }
@@ -15,7 +16,8 @@ public enum PacketType
 {
     CONNEC_STATE = 1001,
     REQUEST_POS = 1002,
-    SEND_POS = 1003
+    SEND_POS = 1003,
+    RE_START = 1004,
 }
 
 public class ConnectionState

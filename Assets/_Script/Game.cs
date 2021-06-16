@@ -61,7 +61,7 @@ public class Game : MonoBehaviour
 
         //float.Epsilon
         if (gazePoint.IsRecent()
-            && gazePoint.Timestamp > (_lastGazePoint.Timestamp + 1f))
+            && gazePoint.Timestamp > (_lastGazePoint.Timestamp + 0.1f))
         {
             _lastGazePoint = gazePoint;
             ScreenPos screenPos = new ScreenPos(Mathf.FloorToInt(gazePoint.Screen.x), Mathf.FloorToInt(gazePoint.Screen.y));
