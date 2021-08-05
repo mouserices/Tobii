@@ -24,6 +24,7 @@ public class Game : MonoBehaviour
 
         StartWebSocket.GetInstance().Create();
         StartWebSocket.GetInstance().ConnectAsync();
+       
     }
 
     // Update is called once per frame
